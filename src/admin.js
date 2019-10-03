@@ -1,26 +1,28 @@
-import React, {Fragment} from "react";
+import React, {Fragment}  from "react";
 import { Row, Col } from 'antd';
+import "./styles/common.less";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import NavLeft from "./components/NavLeft";
 
 class Admin extends React.Component {
 
     render() {
         return (
-            <div>
-                <Row gutter={16}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="gutter-box">col-6</div>
+            <Fragment>
+                <Row className="container">
+                    <Col span={3} className="nav-left">
+                        <NavLeft/>
                     </Col>
-                    <Col className="gutter-row" span={6}>
-                        <div className="gutter-box">col-6</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <div className="gutter-box">col-6</div>
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <div className="gutter-box">col-6</div>
+                    <Col span={21} className="main">
+                        <Header/>
+                        <Row className="content">
+                            Content
+                        </Row>
+                        <Footer/>
                     </Col>
                 </Row>
-            </div>
+            </Fragment>
         );
     }
 }
