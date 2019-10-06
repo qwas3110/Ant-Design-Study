@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Admin from "./admin";
+import App from "./App";
 
 
 ReactDOM.render(
-    <Admin />,
+    <App/>,
     document.getElementById('root')
 );
 

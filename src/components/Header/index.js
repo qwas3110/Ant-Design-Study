@@ -2,7 +2,9 @@ import React from "react";
 import {Row, Col} from "antd";
 import axios from "../../axios";
 import Util from '../../utils/utils';
+import {NavLink} from "react-router-dom";
 import "./index.less";
+
 
 
 class Header extends React.Component {
@@ -45,7 +47,7 @@ class Header extends React.Component {
                 <Row className="header-top">
                     <Col span={24}>
                         <span>欢迎 {this.state.userName}</span>
-                        <a href="#">退出</a>
+                        <NavLink to="/">退出</NavLink>
                     </Col>
                 </Row>
                 <Row className="breadcrumb">
