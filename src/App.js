@@ -13,7 +13,7 @@ import NoMatch from "./pages/nomatch";
 import Messages from "./pages/ui/messages";
 import TabsComponent from "./pages/ui/tabs";
 import Gallery from "./pages/ui/gallery";
-
+import Carousels from "./pages/ui/carousel";
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
                           <Route path={`/ui/messages`} component={Messages}/>
                           <Route path={`/ui/tabs`} component={TabsComponent}/>
                           <Route path={`/ui/gallery`} component={Gallery}/>
+                          <Route path={`/ui/carousel`} component={Carousels}/>
 
                           <Route component={NoMatch}/>
                       </Switch>
