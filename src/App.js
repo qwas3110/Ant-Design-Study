@@ -11,7 +11,7 @@ import Loadings from "./pages/ui/loadings";
 import Notification from "./pages/ui/notifications";
 import NoMatch from "./pages/nomatch";
 import Messages from "./pages/ui/messages";
-
+import TabsComponent from "./pages/ui/tabs";
 function App() {
   return (
       <Router>
@@ -27,6 +27,7 @@ function App() {
                           <Route path={`/ui/loadings`} component={Loadings}/>
                           <Route path={`/ui/notification`} component={Notification}/>
                           <Route path={`/ui/messages`} component={Messages}/>
+                          <Route path={`/ui/tabs`} component={TabsComponent}/>
 
                           <Route component={NoMatch}/>
                       </Switch>
