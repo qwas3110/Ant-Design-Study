@@ -6,7 +6,7 @@ import "./ui.less";
 
 export default class Notification extends React.Component {
 
-    openNotification = (type,direction)=>{
+    openNotification = (type, direction = null)=>{
         if (direction){
             notification.config({
                 placement: direction
