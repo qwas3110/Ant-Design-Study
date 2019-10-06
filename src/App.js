@@ -8,7 +8,7 @@ import Home from "./pages/home";
 import Buttons from "./pages/ui/buttons";
 import Modals from "./pages/ui/modals";
 import Loadings from "./pages/ui/loadings";
-
+import Notification from "./pages/ui/notifications";
 import NoMatch from "./pages/nomatch";
 
 
@@ -25,6 +25,7 @@ function App() {
                           <Route path={`/ui/buttons`} component={Buttons}/>
                           <Route path={`/ui/modals`} component={Modals}/>
                           <Route path={`/ui/loadings`} component={Loadings}/>
+                          <Route path={`/ui/notification`} component={Notification}/>
 
                           <Route component={NoMatch}/>
                       </Switch>
