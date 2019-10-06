@@ -6,6 +6,7 @@ import Admin from "./admin";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import Buttons from "./pages/ui/buttons";
+import Modals from "./pages/ui/modals";
 import NoMatch from "./pages/nomatch";
 
 
@@ -20,6 +21,7 @@ function App() {
                       <Switch>
                           <Route path={`/home`} component={Home}/>
                           <Route path={`/ui/buttons`} component={Buttons}/>
+                          <Route path={`/ui/modals`} component={Modals}/>
                           <Route component={NoMatch}/>
                       </Switch>
                   </Admin>
