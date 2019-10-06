@@ -88,7 +88,7 @@ export default class TabsComponent extends React.Component {
                         activeKey={this.state.activeKey}
                         type="editable-card"
                         onEdit={this.onEdit}
-                    >
+                        >
                         {
                             this.state.panes.map((panel)=>{
                                 return <TabPane
