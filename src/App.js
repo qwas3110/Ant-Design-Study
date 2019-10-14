@@ -14,6 +14,7 @@ import Messages from "./pages/ui/messages";
 import TabsComponent from "./pages/ui/tabs";
 import Gallery from "./pages/ui/gallery";
 import Carousels from "./pages/ui/carousel";
+import FormLogin from "./pages/form/login";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
                           <Route path={`/ui/tabs`} component={TabsComponent}/>
                           <Route path={`/ui/gallery`} component={Gallery}/>
                           <Route path={`/ui/carousel`} component={Carousels}/>
+                          <Route path={`/form/login`} component={FormLogin}/>
+
 
                           <Route component={NoMatch}/>
                       </Switch>
