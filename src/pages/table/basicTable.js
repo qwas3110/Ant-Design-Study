@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Table} from "antd";
+import {Card, Table,Modal} from "antd";
 import axiso from './../../axios/index';
 
 
@@ -13,7 +13,7 @@ class BasicTable extends React.Component {
 
 
   componentDidMount() {
-    const dataSource = [
+    const data = [
       {
         id: '0',
         userName: 'Jack',
@@ -95,9 +95,12 @@ class BasicTable extends React.Component {
         time: '09:00'
       }
     ];
+    data.map((item,index)=>{
+      item.key = index;
+    });
     this.setState({
-      dataSource
-    })
+      dataSource:data
+    });
     this.request();
 
   }
@@ -113,12 +116,29 @@ class BasicTable extends React.Component {
       }
     }).then(res => {
       if (res.code == '0') {
+
+        res.result.list.map((item, index) => {
+          item.key = index;
+        })
+
         this.setState({
           dataSource2: res.result.list
         })
       }
     })
   };
+
+  onRowClick = (record,index)=>{
+    let selectKey = [index];
+    Modal.info({
+      title:'信息',
+      content:`用户名：${record.userName},用户爱好：${record.interest}`
+    })
+    this.setState({
+      selectedRowKeys:selectKey,
+      selectedItem: record
+    })
+  }
 
 
   render() {
@@ -190,23 +210,27 @@ class BasicTable extends React.Component {
         dataIndex: 'time'
       }
     ];
+    const selectedRowKeys = this.state.selectedRowKeys;
+    //该参数指定单选或者多选
+    //同时需要绑定 selectedRowKeys
+    const rowSelection = {
+      type:'radio',
+      selectedRowKeys
+    };
 
     console.log(this.state.dataSource2);
     return (
       <div>
 
         <Card title="基础表格">
-
           <Table
             bordered
             columns={columns}
             dataSource={this.state.dataSource}
             pagination={false}
           />
-
         </Card>
-
-        <Card title="动态渲染表格" style={{margin: '10px 0'}}>
+        <Card title="动态数据渲染表格-Mock" style={{margin:'10px 0'}}>
           <Table
             bordered
             columns={columns}
@@ -214,6 +238,27 @@ class BasicTable extends React.Component {
             pagination={false}
           />
         </Card>
+
+        {/* onRow 接受一个回调函数*/}
+
+        <Card title="Mock-单选" style={{ margin: '10px 0' }}>
+          <Table
+            bordered
+            rowSelection={rowSelection}
+            onRow={(record,index) => {
+              return {
+                onClick:()=>{
+                  this.onRowClick(record,index);
+                }
+              };
+            }}
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            pagination={false}
+          />
+        </Card>
+
+
 
       </div>
     );
