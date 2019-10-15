@@ -1,13 +1,15 @@
 import React from "react";
 import {Card, Table} from "antd";
-
+import axiso from './../../axios/index';
 
 
 
 
 class BasicTable extends React.Component {
 
-  state = {};
+  state = {
+    dataSource2: []
+  };
 
 
   componentDidMount() {
@@ -96,8 +98,27 @@ class BasicTable extends React.Component {
     this.setState({
       dataSource
     })
+    this.request();
 
   }
+
+  //动态获取mock数据
+  request = () => {
+    axiso.ajax({
+      url: '/table/list',
+      data: {
+        params: {
+          page:1
+        }
+      }
+    }).then(res => {
+      if (res.code == '0') {
+        this.setState({
+          dataSource2: res.result.list
+        })
+      }
+    })
+  };
 
 
   render() {
@@ -144,7 +165,7 @@ class BasicTable extends React.Component {
       }
     ];
 
-
+    console.log(this.state.dataSource2);
     return (
       <div>
 
@@ -157,6 +178,15 @@ class BasicTable extends React.Component {
             pagination={false}
           />
 
+        </Card>
+
+        <Card title="动态渲染表格" style={{margin: '10px 0'}}>
+          <Table
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            pagination={false}
+          />
         </Card>
 
       </div>
