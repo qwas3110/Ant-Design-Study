@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Table,Modal} from "antd";
+import {Card, Table,Modal,message,Button} from "antd";
 import axiso from './../../axios/index';
 
 
@@ -138,7 +138,24 @@ class BasicTable extends React.Component {
       selectedRowKeys:selectKey,
       selectedItem: record
     })
-  }
+  };
+
+  // 多选执行删除动作
+  handleDelete = (()=>{
+    let rows = this.state.selectedRows;
+    let ids = [];
+    rows.map((item)=>{
+      ids.push(item.id)
+    });
+    Modal.confirm({
+      title:'删除提示',
+      content: `您确定要删除这些数据吗？${ids.join(',')}`,
+      onOk:()=>{
+        message.success('删除成功');
+        this.request();
+      }
+    })
+  });
 
 
   render() {
@@ -218,6 +235,17 @@ class BasicTable extends React.Component {
       selectedRowKeys
     };
 
+    const rowCheckSelection = {
+      type: 'checkbox',
+      selectedRowKeys,
+      onChange:(selectedRowKeys,selectedRows)=>{
+        this.setState({
+          selectedRowKeys,
+          selectedRows
+        })
+      }
+    };
+
     console.log(this.state.dataSource2);
     return (
       <div>
@@ -252,6 +280,19 @@ class BasicTable extends React.Component {
                 }
               };
             }}
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            pagination={false}
+          />
+        </Card>
+
+        <Card title="Mock-多选" style={{ margin: '10px 0' }}>
+          <div style={{marginBottom:10}}>
+            <Button onClick={this.handleDelete}>删除</Button>
+          </div>
+          <Table
+            bordered
+            rowSelection={rowCheckSelection}
             columns={columns}
             dataSource={this.state.dataSource2}
             pagination={false}
