@@ -16,6 +16,8 @@ import Gallery from "./pages/ui/gallery";
 import Carousels from "./pages/ui/carousel";
 import FormLogin from "./pages/form/login";
 import FormRegister from "./pages/form/register";
+import BasicTable from "./pages/table/basicTable";
+import HighTable from "./pages/table/highTable";
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
                           <Route path={`/ui/carousel`} component={Carousels}/>
                           <Route path={`/form/login`} component={FormLogin}/>
                           <Route path={`/form/reg`} component={FormRegister}/>
+                          <Route path={`/table/basic`} component={BasicTable}/>
+                          <Route path={`/table/high`} component={HighTable}/>
 
 
                           <Route component={NoMatch}/>
