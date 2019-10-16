@@ -1,27 +1,37 @@
-import React from "react";
-import {Card, Table,Modal,message,Button} from "antd";
-import axiso from './../../axios/index';
+import React from 'react';
+import { Card, Table, Modal, Button, message} from 'antd';
+import axios from './../../axios/index'
+import Utils from './../../utils/utils';
+export default class BasicTable extends React.Component{
 
+  state={
+    dataSource2:[]
+  }
 
+  params = {
+    page:1
+  }
 
-
-class BasicTable extends React.Component {
-
-  state = {
-    dataSource2: []
-  };
-
-
-  componentDidMount() {
+  componentDidMount(){
     const data = [
       {
-        id: '0',
-        userName: 'Jack',
+        id:'0',
+        userName:'Jack',
+        sex:'1',
+        state:'1',
+        interest:'1',
+        birthday:'2000-01-01',
+        address:'北京市海淀区奥林匹克公园',
+        time:'09:00'
+      },
+      {
+        id: '1',
+        userName: 'Tom',
         sex: '1',
         state: '1',
         interest: '1',
         birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
+        address: '北京市海淀区奥林匹克公园',
         time: '09:00'
       },
       {
@@ -31,102 +41,46 @@ class BasicTable extends React.Component {
         state: '1',
         interest: '1',
         birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
+        address: '北京市海淀区奥林匹克公园',
         time: '09:00'
       },
-      {
-        id: '3',
-        userName: 'Alex',
-        sex: '1',
-        state: '1',
-        interest: '1',
-        birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
-        time: '09:00'
-      },
-      {
-        id: '4',
-        userName: 'Tom',
-        sex: '1',
-        state: '1',
-        interest: '1',
-        birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
-        time: '09:00'
-      },
-      {
-        id: '5',
-        userName: 'Nash',
-        sex: '1',
-        state: '1',
-        interest: '1',
-        birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
-        time: '09:00'
-      },
-      {
-        id: '6',
-        userName: 'Kobe',
-        sex: '1',
-        state: '1',
-        interest: '1',
-        birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
-        time: '09:00'
-      },
-      {
-        id: '7',
-        userName: 'Russell',
-        sex: '1',
-        state: '1',
-        interest: '1',
-        birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
-        time: '09:00'
-      },
-      {
-        id: '8',
-        userName: 'Ming',
-        sex: '1',
-        state: '1',
-        interest: '1',
-        birthday: '2000-01-01',
-        address: '厦门市湖里区软件园二期',
-        time: '09:00'
-      }
-    ];
+    ]
     data.map((item,index)=>{
       item.key = index;
-    });
+    })
     this.setState({
-      dataSource:data
-    });
+      dataSource: data
+    })
     this.request();
-
   }
 
-  //动态获取mock数据
-  request = () => {
-    axiso.ajax({
-      url: '/table/list',
-      data: {
-        params: {
-          page:1
+  // 动态获取mock数据
+  request = ()=>{
+    let _this = this;
+    axios.ajax({
+      url:'/table/list',
+      data:{
+        params:{
+          page:this.params.page
         }
       }
-    }).then(res => {
-      if (res.code == '0') {
-
+    }).then((res)=>{
+      if(res.code == 0){
         res.result.list.map((item, index) => {
           item.key = index;
         })
-
         this.setState({
-          dataSource2: res.result.list
+          dataSource2:res.result.list,
+          selectedRowKeys:[],
+          selectedRows:null,
+          pagination: Utils.pagination(res,(current)=>{
+            _this.params.page = current;
+            this.request();
+          })
         })
       }
     })
-  };
+  }
 
   onRowClick = (record,index)=>{
     let selectKey = [index];
@@ -138,7 +92,7 @@ class BasicTable extends React.Component {
       selectedRowKeys:selectKey,
       selectedItem: record
     })
-  };
+  }
 
   // 多选执行删除动作
   handleDelete = (()=>{
@@ -146,7 +100,7 @@ class BasicTable extends React.Component {
     let ids = [];
     rows.map((item)=>{
       ids.push(item.id)
-    });
+    })
     Modal.confirm({
       title:'删除提示',
       content: `您确定要删除这些数据吗？${ids.join(',')}`,
@@ -155,10 +109,9 @@ class BasicTable extends React.Component {
         this.request();
       }
     })
-  });
+  })
 
-
-  render() {
+  render(){
     const columns = [
       {
         title:'id',
@@ -226,15 +179,12 @@ class BasicTable extends React.Component {
         key: 'time',
         dataIndex: 'time'
       }
-    ];
+    ]
     const selectedRowKeys = this.state.selectedRowKeys;
-    //该参数指定单选或者多选
-    //同时需要绑定 selectedRowKeys
     const rowSelection = {
       type:'radio',
       selectedRowKeys
-    };
-
+    }
     const rowCheckSelection = {
       type: 'checkbox',
       selectedRowKeys,
@@ -244,12 +194,9 @@ class BasicTable extends React.Component {
           selectedRows
         })
       }
-    };
-
-    console.log(this.state.dataSource2);
+    }
     return (
       <div>
-
         <Card title="基础表格">
           <Table
             bordered
@@ -267,7 +214,6 @@ class BasicTable extends React.Component {
           />
         </Card>
 
-        {/* onRow 接受一个回调函数*/}
 
         <Card title="Mock-单选" style={{ margin: '10px 0' }}>
           <Table
@@ -285,8 +231,7 @@ class BasicTable extends React.Component {
             pagination={false}
           />
         </Card>
-
-        <Card title="Mock-多选" style={{ margin: '10px 0' }}>
+        <Card title="Mock-单选" style={{ margin: '10px 0' }}>
           <div style={{marginBottom:10}}>
             <Button onClick={this.handleDelete}>删除</Button>
           </div>
@@ -298,13 +243,15 @@ class BasicTable extends React.Component {
             pagination={false}
           />
         </Card>
-
-
-
+        <Card title="Mock-表格分页" style={{ margin: '10px 0' }}>
+          <Table
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            pagination={this.state.pagination}
+          />
+        </Card>
       </div>
     );
   }
 }
-
-
-export default BasicTable;

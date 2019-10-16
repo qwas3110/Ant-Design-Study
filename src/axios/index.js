@@ -42,47 +42,44 @@ export default class Axios {
     })
   }
 
-  static ajax(options) {
+  static ajax(options){
     let loading;
     if (options.data && options.data.isShowLoading !== false){
       loading = document.getElementById('ajaxLoading');
       loading.style.display = 'block';
     }
-
-
-
-
-    let baseUrl = 'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api';
-
-
-    return new Promise((resolve, reject) => {
+    let baseApi = '';
+    if(options.isMock){
+      baseApi = 'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api';
+    }else{
+      baseApi = 'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api';
+    }
+    return new Promise((resolve,reject)=>{
       axios({
-        url: options.url,
-        method: 'get',
-        baseURL: baseUrl,
+        url:options.url,
+        method:'get',
+        baseURL:baseApi,
         timeout:5000,
         params: (options.data && options.data.params) || ''
-      }).then((response) => {
+      }).then((response)=>{
         if (options.data && options.data.isShowLoading !== false) {
           loading = document.getElementById('ajaxLoading');
           loading.style.display = 'none';
         }
-
-        if (response.status == '200') {
+        if (response.status == '200'){
           let res = response.data;
-          if (res.code == '0') {
+          if (res.code == '0'){
             resolve(res);
+          }else{
+            Modal.info({
+              title:"提示",
+              content:res.msg
+            })
           }
-        }  else {
-          Modal.info({
-            title: '提示',
-            content: response.data.msg
-          })
+        }else{
+          reject(response.data);
         }
-
       })
-
-
-    })
+    });
   }
 }
