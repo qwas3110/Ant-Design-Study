@@ -1,6 +1,15 @@
 import React from "react";
-import {Card, Button, Radio} from "antd";
+import {Card, Button, Radio,DatePicker} from "antd";
+import moment from 'moment';
 import "./ui.less";
+
+
+const { MonthPicker, RangePicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
+
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+
 
 
 export default class Buttons extends React.Component {
@@ -67,6 +76,12 @@ export default class Buttons extends React.Component {
                     <Button size={this.state.size}>Ant Design</Button>
                     <Button type="dashed" size={this.state.size}>Ant Design</Button>
                     <Button type="danger" size={this.state.size}>Ant Design</Button>
+                </Card>
+
+
+                <Card>
+                  <DatePicker defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} />
+
                 </Card>
             </div>
         );

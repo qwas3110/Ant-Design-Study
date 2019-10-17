@@ -1,26 +1,19 @@
-import React from "react";
+import React from 'react'
 import {Card,Form,Button,Input,Checkbox,Radio,Select,Switch,DatePicker,TimePicker,Upload,Icon,message, InputNumber} from 'antd'
-import moment from "moment";
-
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const Option = Select.Option;
 const TextArea = Input.TextArea;
+class FormRegister extends React.Component{
 
-
-class FormRegister extends React.Component {
-
-  state={};
+  state={}
 
   handleSubmit = ()=>{
     let userInfo = this.props.form.getFieldsValue();
     console.log(JSON.stringify(userInfo))
     message.success(`${userInfo.userName} 恭喜你，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}`)
   }
-
-
-
 
   getBase64 = (img, callback)=>{
     const reader = new FileReader();
@@ -42,7 +35,7 @@ class FormRegister extends React.Component {
     }
   }
 
-  render() {
+  render(){
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol:{
@@ -53,7 +46,7 @@ class FormRegister extends React.Component {
         xs:24,
         sm:12
       }
-    };
+    }
     const offsetLayout = {
       wrapperCol:{
         xs:24,
@@ -62,20 +55,14 @@ class FormRegister extends React.Component {
           offset:4
         }
       }
-    };
+    }
     const rowObject = {
       minRows: 4, maxRows: 6
-    };
-
-
-
+    }
     return (
       <div>
-
         <Card title="注册表单">
-
           <Form layout="horizontal">
-
             <FormItem label="用户名" {...formItemLayout}>
               {
                 getFieldDecorator('userName', {
@@ -100,7 +87,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="性别" {...formItemLayout}>
               {
                 getFieldDecorator('sex', {
@@ -113,7 +99,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="年龄" {...formItemLayout}>
               {
                 getFieldDecorator('age', {
@@ -123,7 +108,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="当前状态" {...formItemLayout}>
               {
                 getFieldDecorator('state', {
@@ -139,7 +123,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="爱好" {...formItemLayout}>
               {
                 getFieldDecorator('interest', {
@@ -158,7 +141,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="是否已婚" {...formItemLayout}>
               {
                 getFieldDecorator('isMarried', {
@@ -169,12 +151,9 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="生日" {...formItemLayout}>
               {
-                getFieldDecorator('birthday', {
-                  initialValue: moment('2018-08-09 12:00:59')
-                })(
+                getFieldDecorator('birthday')(
                   <DatePicker
                     showTime
                     format="YYYY-MM-DD HH:mm:ss"
@@ -182,7 +161,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="联系地址" {...formItemLayout}>
               {
                 getFieldDecorator('address',{
@@ -194,7 +172,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem label="早起时间" {...formItemLayout}>
               {
                 getFieldDecorator('time')(
@@ -202,8 +179,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
-
             <FormItem label="头像" {...formItemLayout}>
               {
                 getFieldDecorator('userImg')(
@@ -218,7 +193,6 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem {...offsetLayout}>
               {
                 getFieldDecorator('userImg')(
@@ -226,20 +200,13 @@ class FormRegister extends React.Component {
                 )
               }
             </FormItem>
-
             <FormItem {...offsetLayout}>
               <Button type="primary" onClick={this.handleSubmit}>注册</Button>
             </FormItem>
-
           </Form>
-
-
         </Card>
-
       </div>
     );
   }
 }
-
-
 export default Form.create()(FormRegister);

@@ -66,6 +66,10 @@ const menuList = [
             {
                 title: '高级表格',
                 key: '/table/high',
+            },
+            {
+              title: '测试',
+              key: '/table/test',
             }
         ]
     },

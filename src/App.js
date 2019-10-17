@@ -18,6 +18,8 @@ import FormLogin from "./pages/form/login";
 import FormRegister from "./pages/form/register";
 import BasicTable from "./pages/table/basicTable";
 import HighTable from "./pages/table/highTable";
+import Test from "./pages/table/test";
+import City from "./pages/city";
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
                           <Route path={`/form/reg`} component={FormRegister}/>
                           <Route path={`/table/basic`} component={BasicTable}/>
                           <Route path={`/table/high`} component={HighTable}/>
+                          <Route path={`/table/test`} component={Test}/>
+                          <Route path={`/city`} component={City}/>
 
 
                           <Route component={NoMatch}/>
@@ -55,3 +59,6 @@ function App() {
 }
 
 export default App;
+
+
+
