@@ -11,6 +11,48 @@ const Option = Select.Option;
 class City extends React.Component {
 
 
+  state = {
+    list:[],
+    isShowOpenCity:false
+  };
+
+  params = {
+    page:1
+  };
+
+
+  componentDidMount() {
+    this.requestList();
+  }
+
+  requestList = () => {
+    let _this = this;
+    axios
+      .ajax({
+        url: '/open_city',
+        data: {
+          params: {
+            page: this.params.page
+          }
+        }
+      })
+      .then((res) => {
+        let list = res.result.item_list.map((item, index) => {
+          item.key = index;
+          return item;
+        });
+        this.setState({
+          list,
+          pagination:Utils.pagination(res,(current)=>{
+            _this.params.page = current;
+            _this.requestList();
+          })
+
+        })
+      })
+  };
+
+
   //开通城市
   handleOpenCity = () => {
 
@@ -70,7 +112,14 @@ class City extends React.Component {
           <Button type={"primary"} onClick={this.handleOpenCity}>开通城市</Button>
         </Card>
 
-        <Table/>
+        <div className="content-wrap">
+          <Table
+            bordered
+            columns={columns}
+            dataSource={this.state.list}
+            pagination={this.state.pagination}
+          />
+        </div>
       </div>
     );
   }
