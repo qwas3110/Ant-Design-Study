@@ -20,6 +20,11 @@ import BasicTable from "./pages/table/basicTable";
 import HighTable from "./pages/table/highTable";
 import Test from "./pages/table/test";
 import City from "./pages/city";
+import Order from "./pages/order";
+import Common from "./common";
+import OrderDetail from './pages/order/detail';
+
+
 
 
 function App() {
@@ -27,6 +32,12 @@ function App() {
       <Router>
           <Switch>
               <Route path="/login" component={Login}/>
+
+              <Route path="/common" render={() => (
+                <Common>
+                  <Route path="/common/order/detail/:orderId" component={OrderDetail}/>
+                </Common>
+              )}/>
 
               <Route path="/" render={() => (
                   <Admin>
@@ -46,9 +57,10 @@ function App() {
                           <Route path={`/table/high`} component={HighTable}/>
                           <Route path={`/table/test`} component={Test}/>
                           <Route path={`/city`} component={City}/>
+                          <Route path={`/order`} component={Order}/>
 
 
-                          <Route component={NoMatch}/>
+                        <Route component={NoMatch}/>
                       </Switch>
                   </Admin>
               )}/>
