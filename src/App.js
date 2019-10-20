@@ -35,7 +35,7 @@ function App() {
 
               <Route path="/common" render={() => (
                 <Common>
-                  <Route path="/common/order/detail/:orderId" component={OrderDetail}/>
+                  <Route path="/order/detail/:orderId" component={OrderDetail}/>
                 </Common>
               )}/>
 

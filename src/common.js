@@ -11,6 +11,7 @@ export default class Common extends React.Component {
     return (
       <div>
         <Row className="simple-page">
+          {/*类似小导航*/}
           <Header menuType="second" />
         </Row>
         <Row className="content">

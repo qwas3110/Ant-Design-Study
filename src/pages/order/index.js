@@ -114,7 +114,25 @@ export default class Order extends React.Component {
       selectedRowKeys:selectKey,
       selectedItem: record
     })
-  }
+  };
+
+
+  // 打开订单呢详情
+  openOrderDetail = () => {
+    let item = this.state.selectedItem;
+    //做一个判断。如果id是false 直接return
+    if (!item) {
+      Modal.info({
+        title: '信息',
+        content: "请先选择一条订单"
+      });
+      return;
+    }
+
+    window.open(`/common/order/detail/${item.id}`,'_blank')
+
+
+  };
 
 
   render() {
@@ -184,7 +202,13 @@ export default class Order extends React.Component {
         </Card>
 
         <Card style={{marginTop: 10}}>
-          <Button type={"primary"}>订单详情</Button>
+          <Button
+            type={"primary"}
+            onClick={this.openOrderDetail}
+            >
+            订单详情
+          </Button>
+
           <Button
             type={"primary"}
             style={{marginRight:10}}
