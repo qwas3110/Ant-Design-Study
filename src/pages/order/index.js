@@ -105,32 +105,11 @@ export default class Order extends React.Component {
   }
 
 
-  requestList = () => {
+  //调用封装好的 列表请求
+  requestList = ()=>{
     let _this = this;
-    axios.ajax({
-      url:'/order/list',
-      data: {
-        params: {
-          page: this.params.page
-        }
-      }
-    }).then(res => {
-      if (res.code === "0") {
-        let list = res.result.item_list.map((item,index) => {
-          item.key = index;
-          return item;
-        })
-
-        this.setState({
-          list,
-          pagination: Utils.pagination(res, (current) => {
-            _this.params.page = current;
-            _this.requestList();
-          })
-        })
-      }
-    })
-  };
+    axios.requestList(this,'/order/list',this.params,true)
+  }
 
 
   onRowClick = (record,index)=>{

@@ -4,6 +4,7 @@ import { Modal } from 'antd'
 import Utils from './../utils/utils'
 export default class Axios {
 
+  // 请求列表封装
   static requestList(_this,url,params,isMock){
     var data = {
       params: params,
