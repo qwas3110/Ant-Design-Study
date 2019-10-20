@@ -21,6 +21,7 @@ export default {
       showQuickJumper:true
     }
   },
+  //处理Option方法
   getOptionList(data){
     if(!data){
       return [];
