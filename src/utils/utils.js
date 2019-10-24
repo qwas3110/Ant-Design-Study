@@ -32,6 +32,8 @@ export default {
     })
     return options;
   },
+
+  //做一些 table 多选或单选的封装
   updateSelectedItem(selectedRowKeys, selectedItem, selectedIds){
     if (selectedIds){
       this.setState({

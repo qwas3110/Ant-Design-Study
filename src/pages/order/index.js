@@ -3,7 +3,7 @@ import { Card, Button, Table, Form, Select, Modal, DatePicker, message} from 'an
 import axios from '../../axios'
 import Utils from '../../utils/utils';
 import BaseForm from '../../components/BaseForm'
-
+import ETable from "../../components/ETable";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -230,21 +230,33 @@ export default class Order extends React.Component {
         </Card>
 
         <div className="content-wrap">
-          <Table
-            bordered
-            owSelection={rowSelection}
-            onRow={((record, index) => {
-              return {
-                onClick: () => {
-                  this.onRowClick(record,index);
-                }
-              }
-            })}
+
+          <ETable
+
+            updateSelectedItem={Utils.updateSelectedItem.bind(this)}
             columns={columns}
             dataSource={this.state.list}
+            selectedRowKeys={this.state.selectedRowKeys}
+            selectedIds={this.state.selectedIds}
+            selectedItem={this.state.selectedItem}
             pagination={this.state.pagination}
-            r
+            // rowSelection="checkbox"
           />
+          {/*<Table*/}
+          {/*  bordered*/}
+          {/*  owSelection={rowSelection}*/}
+          {/*  onRow={((record, index) => {*/}
+          {/*    return {*/}
+          {/*      onClick: () => {*/}
+          {/*        this.onRowClick(record,index);*/}
+          {/*      }*/}
+          {/*    }*/}
+          {/*  })}*/}
+          {/*  columns={columns}*/}
+          {/*  dataSource={this.state.list}*/}
+          {/*  pagination={this.state.pagination}*/}
+          {/*  r*/}
+          {/*/>*/}
         </div>
 
         <Modal
