@@ -28,6 +28,8 @@ import BikeMap from "./pages/map/bikeMap";
 import Bar from './pages/echarts/bar';
 import Line from "./pages/echarts/line";
 import Pie from './pages/echarts/pie';
+import RichText from "./pages/rich";
+
 
 function App() {
   return (
@@ -65,6 +67,7 @@ function App() {
                           <Route path={`/charts/bar`} component={Bar}/>
                           <Route path={`/charts/pie`} component={Pie}/>
                           <Route path={`/charts/line`} component={Line}/>
+                          <Route path={`/rich`} component={RichText}/>
 
 
                         <Route component={NoMatch}/>
