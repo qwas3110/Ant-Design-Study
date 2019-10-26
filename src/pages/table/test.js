@@ -1,10 +1,6 @@
 import React from 'react'
-import {Card,Form,Button,Input,Checkbox,Radio,Select,Switch,DatePicker,TimePicker,Upload,Icon,message, InputNumber} from 'antd'
-
-const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
-const Option = Select.Option;
-const TextArea = Input.TextArea;
+import {Modal,Form,Button} from "antd";
+import {CustomModal,EasyModal,ContentModal,TabModal} from "./components/PopConfirm/popConfirm";
 
 
 
@@ -13,11 +9,50 @@ const TextArea = Input.TextArea;
 
 class Test extends React.Component {
 
+  state = {
+    visible: false,
+    waitTime: 10,
+  };
+
+
+  handleSHow = () => {
+    this.setState({visible:true})
+  };
+
+
+  handleHide = () => {
+    this.setState({
+      visible: false
+    })
+  };
+
+
+
+
+
+
+
+
 
   render() {
     return (
-      <div>
+      <div className="App">
+        <Button
+          onClick={() => this.handleSHow()}
+          >
+          click
+        </Button>
 
+        <TabModal
+          title="标题"
+          visible={this.state.visible}
+          okText="关闭"
+          onOk={this.handleHide}
+
+
+          >
+
+        </TabModal>
       </div>
     );
   }
@@ -26,4 +61,4 @@ class Test extends React.Component {
 
 
 
-export default Form.create()(Test)
+export default Test;

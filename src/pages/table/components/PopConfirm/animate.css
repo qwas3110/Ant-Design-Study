@@ -1,0 +1,118 @@
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+  }
+}
+
+@keyframes zoomOut {
+  40% {
+    opacity: 1;
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+  }
+}
+
+
+
+.zoomIn {
+  animation-play-state: running;
+  animation-duration: 0.35s;
+  animation-name: zoomIn;
+  animation-fill-mode: both;
+}
+
+.zoomOut {
+  animation-duration: 0.35s;
+  animation-name: zoomOut;
+  animation-fill-mode: both;
+  animation-play-state: running;
+}
+
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+
+.fadeInUp {
+  animation-play-state: running;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  animation-name: fadeInUp;
+}
+
+.fadeOutDown {
+  animation-play-state: running;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  animation-name: fadeOutDown;
+}
+
+@keyframes zoomBigIn {
+  0% {
+    opacity: 0;
+    transform: scale(.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomBigOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(.8);
+  }
+}
+
+.zoomBigIn{
+  animation-play-state: running;
+  animation-duration: 0.1s;
+  animation-fill-mode: both;
+  animation-name: zoomBigIn;
+}
+
+.zoomBigOut{
+  animation-play-state: running;
+  animation-duration: 0.1s;
+  animation-fill-mode: both;
+  animation-name: zoomBigOut;
+}
