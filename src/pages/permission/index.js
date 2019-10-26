@@ -47,6 +47,44 @@ export default class PermissionUser extends React.Component {
   };
 
 
+  // 权限设置
+  handlePermission = ()=>{
+    let item = this.state.selectedItem; // 通过它能获取我们当前选中数据的对象
+    if (!item){  //通过该对象来判断当前有没有选择这条数据
+      Modal.info({
+        text:'请选择一个角色'
+      })
+      return;
+    }
+    this.setState({
+      isPermVisible:true,
+      detailInfo:item, // 当前角色信息
+      menuInfo: item.menus
+    })
+  }
+
+  handlePermEditSubmit = ()=>{
+    let data = this.permForm.props.form.getFieldsValue();
+    data.role_id = this.state.selectedItem.id;
+    data.menus = this.state.menuInfo;
+    axios.ajax({
+      url:'/permission/edit',
+      data:{
+        params:{
+          ...data
+        }
+      }
+    }).then((res)=>{
+      if(res){
+        this.setState({
+          isPermVisible:false
+        })
+        axios.requestList(this, '/role/list', {});
+      }
+    })
+  }
+
+
   render() {
     const columns = [
       {
@@ -78,7 +116,7 @@ export default class PermissionUser extends React.Component {
       <div>
         <Card>
           <Button type={"primary"} onClick={this.handleRole}>创建角色</Button>
-          <Button type={"primary"} style={{marginLeft:10,marginRight:10}} >设置权限</Button>
+          <Button type={"primary"} style={{marginLeft:10,marginRight:10}} onClick={this.handlePermission}>设置权限</Button>
           <Button type={"primary"}>用户授权</Button>
 
         </Card>
@@ -104,6 +142,29 @@ export default class PermissionUser extends React.Component {
           }}
         >
           <RoleForm wrappedComponentRef={(inst)=>this.roleForm=inst}></RoleForm>
+        </Modal>
+
+        <Modal
+          title="设置权限"
+          visible={this.state.isPermVisible}
+          width={600}
+          onOk={this.handlePermEditSubmit}
+          onCancel={()=>{
+            this.setState({
+              isPermVisible:false  //关闭弹框
+            })
+          }}
+        >
+          <PermEditForm
+            wrappedComponentRef={(inst) => this.permForm = inst}
+            detailInfo={this.state.detailInfo}
+            menuInfo={this.state.menuInfo}
+            patchMenuInfo={(checkedKeys)=>{
+              this.setState({
+                menuInfo: checkedKeys
+              })
+            }}
+          />
         </Modal>
 
 
@@ -146,3 +207,65 @@ class RoleForm extends React.Component {
   }
 }
 RoleForm = Form.create({})(RoleForm);
+
+
+class PermEditForm extends React.Component{
+
+  onCheck = (checkedKeys)=>{
+    this.props.patchMenuInfo(checkedKeys)
+  }
+
+  renderTreeNodes = (data)=>{  // 建立一个递归 ， data为 menuConfig
+    return data.map((item)=>{ // 记得要整个return 这样在引用该方法丢入JSX中才能正常解析
+      if(item.children){ // 如果还有子节点，要继续递归
+        return <TreeNode title={item.title} key={item.key}>
+          {this.renderTreeNodes(item.children)} // 递归的方式在渲染出来
+        </TreeNode>
+      }else{
+        return <TreeNode {...item}/> // 如果没有直接渲染出来
+      }
+    })
+  }
+  render(){
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: { span: 5 },
+      wrapperCol: { span: 19 }
+    }
+    const detail_info = this.props.detailInfo;
+    const menuInfo = this.props.menuInfo;
+    return (
+      <Form layout="horizontal">
+        <FormItem label="角色名称" {...formItemLayout}>
+          <Input disabled placeholder={detail_info.role_name}/>
+        </FormItem>
+        <FormItem label="状态" {...formItemLayout}>
+          {
+            getFieldDecorator('status',{
+              initialValue:'1'
+            })(
+              <Select>
+                <Option value="1">启用</Option>
+                <Option value="0">停用</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <Tree
+          checkable
+          defaultExpandAll
+          onCheck={(checkedKeys)=>{ // 把你当前选中的节点都传递出来
+            this.onCheck(checkedKeys)
+          }}
+          checkedKeys={menuInfo}
+        >
+          {/*TreeNode 为根节点*/}
+          <TreeNode title="平台权限" key="platform_all">
+            {this.renderTreeNodes(menuConfig)}
+          </TreeNode>
+        </Tree>
+      </Form>
+    );
+  }
+}
+PermEditForm = Form.create({})(PermEditForm);
