@@ -32,6 +32,8 @@ export default class RichText extends React.Component {
     });
   }
 
+  //我们输入的任何内容都转换成 对象形式表达出来，
+  // 然后draftjs-to-html 在将这个对象转换成html
   onEditorChange = (contentState)=>{
     this.setState({
       contentState

@@ -29,6 +29,8 @@ import Bar from './pages/echarts/bar';
 import Line from "./pages/echarts/line";
 import Pie from './pages/echarts/pie';
 import RichText from "./pages/rich";
+import PermissionUser from "./pages/permission";
+
 
 
 function App() {
@@ -68,6 +70,7 @@ function App() {
                           <Route path={`/charts/pie`} component={Pie}/>
                           <Route path={`/charts/line`} component={Line}/>
                           <Route path={`/rich`} component={RichText}/>
+                          <Route path={`/permission`} component={PermissionUser}/>
 
 
                         <Route component={NoMatch}/>
